@@ -6,7 +6,7 @@
 
 
 int tests_run = 0;
-
+int tests_age = 0;
 
 int carre(int a)
 {
@@ -37,12 +37,38 @@ static char* test_carre_nul(){
 	mu_assert("le carre de 0 est 0\n", c == 0 * 0);
 }
 
+const  char* categorize_age(int age)
+{
+	if (age < 0) {
+		return "Invalid age";
+	}
+	else if (age < 13) {
+		return "Child";
+	}
+	else if (age < 20) {
+		return "Teenager";
+	}
+	else if (age < 65) {
+		return "Adult";
+	}
+	else {
+		return "Senior";
+	}
+}
+
+static* test_age() {
+
+	int c = categorize_age(18);
+
+	mu_assert("Guy is %s", c);
+}
+
 static char* all_tests() {
 
 	mu_run_test(test_carre_positif);
 	mu_run_test(test_carre_negatif);
 	mu_run_test(test_carre_nul);
-	
+	mu_run_test(test_age);
 
 
 	return 0;
@@ -53,15 +79,16 @@ static char* all_tests() {
 
 int main()
 {
-	char* result = all_tests(); // on lance tous les tests
-	if (result != 0) // il y a eu une erreur
+	char* result = all_tests();
+	if (result != 0) 
 	{
-		printf("%s\n", result); // on affiche le message d’erreur
+		printf("%s\n", result);
 	}
 	else
 	{
 		printf("All tests passed.\n");
 	}
-	printf("Tests run: %d\n", tests_run); // on affiche le nombre de tests lancés
+	printf("Tests run: %d\n", tests_run); 
+
 	return result != 0;
 }
